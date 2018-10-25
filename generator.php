@@ -29,19 +29,20 @@ foreach ( $pokemons as $k => $pokemon ) {
 	if ( $hasforms ) {
 		foreach ( $pokemon['forms'] as $f ) {
 			// Create transparant canvas
-			$img = imagecreatetruecolor(80, 80);
+			$img = imagecreatetruecolor(81, 81);
 			$color = imagecolorallocatealpha($img, 0, 0, 0, 127);
 			imagefill($img, 0, 0, $color);
 			imagesavealpha($img, true);
 			// Define colors
 			$white = imagecolorallocate($img, 255, 255, 255);
 			$black = imagecolorallocate($img, 0, 0, 0);
+			$grey = imagecolorallocate($img, 128, 128, 128);
 			$circlecolor = imagecolorallocate($img, $r, $g, $b);
 			// Draw colored circle
 			imagefilledellipse($img, 40, 40, 80, 80, $circlecolor);
+			imageellipse($img, 40, 40, 80, 80, $black);
 			$protoform = $f['protoform'];
 			$nameform = $f['nameform'];
-			echo $nameform;
 			$namebbox = imagettfbbox($font_size, 0, $name_font_path, $pokemon['name']);
 			$name_image_width = abs($namebbox[4] - $namebbox[0]);
 			if ( $name_image_width <= 80 ) {
@@ -53,25 +54,28 @@ foreach ( $pokemons as $k => $pokemon ) {
 				$name_x = floor((80 - $name_image_width) / 2 + 2);
 			}
 
-			$formbbox = imagettfbbox($font_size, 0, $form_font_path, $pokemon['name']);
+			$formbbox = imagettfbbox($font_size, 0, $form_font_path, $nameform);
 			$form_image_width = abs($formbbox[4] - $formbbox[0]);
 			if ( $form_image_width <= 80 ) {
-				$form_x = floor((80 - $form_image_width) / 2 + 10);
+				$form_x = floor((80 - $form_image_width) / 2 + 2);
 			} else {
 				$form_font_size = 15 - 4;
-				$formbbox = imagettfbbox($font_size, 0, $form_font_path, $pokemon['name']);
+				$formbbox = imagettfbbox($font_size, 0, $form_font_path, $nameform);
 				$form_image_width = abs($formbbox[4] - $formbbox[0]);
-				$form_x = floor((80 - $form_image_width) / 2 + 10);
+				$form_x = floor((80 - $form_image_width) / 2 + 2);
 			}
 
+			imagettftext($img, 20, 0, 17, 27, $grey, $id_font_path, $id);
 			imagettftext($img, 20, 0, 16, 26, $white, $id_font_path, $id);
+			imagettftext($img, $font_size, 0, $name_x + 1, 49, $grey, $name_font_path, $pokemon['name']);
 			imagettftext($img, $font_size, 0, $name_x, 48, $white, $name_font_path, $pokemon['name']);
+			imagettftext($img, $form_font_size, 0, $form_x + 1, 66, $grey, $form_font_path, $nameform);
 			imagettftext($img, $form_font_size, 0, $form_x, 65, $white, $form_font_path, $nameform);
 			imagepng($img, "icons/pokemon_icon_" . $id . "_" . $protoform . ".png");
 		}
 	} else {
 		// Create transparant canvas
-		$img = imagecreatetruecolor(80, 80);
+		$img = imagecreatetruecolor(81, 81);
 		$color = imagecolorallocatealpha($img, 0, 0, 0, 127);
 		imagefill($img, 0, 0, $color);
 		imagesavealpha($img, true);
@@ -79,8 +83,11 @@ foreach ( $pokemons as $k => $pokemon ) {
 		$white = imagecolorallocate($img, 255, 255, 255);
 		$black = imagecolorallocate($img, 0, 0, 0);
 		$circlecolor = imagecolorallocate($img, $r, $g, $b);
+		$grey = imagecolorallocate($img, 128, 128, 128);
 		// Draw colored circle
 		imagefilledellipse($img, 40, 40, 80, 80, $circlecolor);
+		imagesetthickness($img, 2);
+		imageellipse($img, 40, 40, 80, 80, $black);
 		$bbox = imagettfbbox($font_size, 0, $name_font_path, $pokemon['name']);
 		$image_width = abs($bbox[4] - $bbox[0]);
 		if ( $image_width <= 80 ) {
@@ -91,7 +98,9 @@ foreach ( $pokemons as $k => $pokemon ) {
 			$image_width = abs($bbox[4] - $bbox[0]);
 			$x = floor((80 - $image_width) / 2 + 2);
 		}
+		imagettftext($img, 20, 0, 17, 27, $grey, $id_font_path, $id);
 		imagettftext($img, 20, 0, 16, 26, $white, $id_font_path, $id);
+		imagettftext($img, $font_size, 0, $x + 1, 49, $grey, $name_font_path, $pokemon['name']);
 		imagettftext($img, $font_size, 0, $x, 48, $white, $name_font_path, $pokemon['name']);
 		imagepng($img, "icons/pokemon_icon_" . $id . "_00.png");
 	}
