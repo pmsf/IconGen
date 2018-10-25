@@ -32,26 +32,30 @@ foreach ( $pokemons as $k => $pokemon ) {
 	imagefilledellipse($img, 40, 40, 80, 80, $circlecolor);
 	// Define text font
 	$font_path = '/opt/safespritesgenerator/Aller_Rg.ttf';
-
+	$font_size = 15;
 	$hasforms = isset( $pokemon['forms'] );
 	if ( $hasforms ) {
 		foreach ( $pokemon['forms'] as $f ) {
 			$protoform = $f['protoform'];
 			imagettftext($img, 20, 0, 18, 24, $white, $font_path, $id);
 			imagettftext($img, 15, 0, 1, 47, $white, $font_path, $pokemon['name']);
-			imagepng($img, "icons/pokemon_icon_" . $id . "_" . $protoform . ".png");
 			imagettftext($img, 15, 0, 1, 70, $white, $font_path, $f['nameform']);
+			imagepng($img, "icons/pokemon_icon_" . $id . "_" . $protoform . ".png");
 		}
 	} else {
+		$bbox = imagettfbbox($font_size, 0, $font_path, $pokemon['name']);
+		$image_width = abs($bbox[4] - $bbox[0]);
+		if ( $image_width <= 80 ) {
+			$x = floor((80 - $image_width) / 2);
+		} else {
+			$font_size = 15 - 2;
+			$bbox = imagettfbbox($font_size, 0, $font_path, $pokemon['name']);
+			$image_width = abs($bbox[4] - $bbox[0]);
+			echo $image_width;
+			$x = floor((80 - $image_width) / 2);
+		}
 		imagettftext($img, 20, 0, 18, 24, $white, $font_path, $id);
-		imagettftext($img, 15, 0, 1, 47, $white, $font_path, $pokemon['name']);
+		imagettftext($img, $font_size, 0, $x, 47, $white, $font_path, $pokemon['name']);
 		imagepng($img, "icons/pokemon_icon_" . $id . "_00.png");
-	}
-
-
-
-
-	if ( $k > 1 ) {
-		break;
 	}
 }
