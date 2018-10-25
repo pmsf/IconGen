@@ -16,17 +16,24 @@ foreach ( $pokemons as $k => $pokemon ) {
 	foreach ( $pokemon['types'] as $t ) {
 		array_push($color, $t['color']);
 	}
-
+	// Get type color from pokemon
 	$primarycolor = $color[0];
 	list($r, $g, $b) = sscanf($primarycolor, "#%02x%02x%02x");
+	// Create transparant canvas
 	$img = imagecreatetruecolor(80, 80);
-	imagesavealpha($img, true);
 	$color = imagecolorallocatealpha($img, 0, 0, 0, 127);
-	$circlecolor = imagecolorallocate($img, $r, $g, $b);
 	imagefill($img, 0, 0, $color);
-	imagefilledellipse($img, 40, 40, 80, 80, $circlecolor);
-	$font_path = '/opt/safespritesgenerator/Aller_Rg.ttf';
+	imagesavealpha($img, true);
+	// Define colors
 	$white = imagecolorallocate($img, 255, 255, 255);
+	$black = imagecolorallocate($img, 0, 0, 0);
+	$circlecolor = imagecolorallocate($img, $r, $g, $b);
+	// Draw outer arc
+	imageArc($img, 40, 40, 80, 80, 0, 360, $black);
+	// Draw colored circle
+	imagefilledellipse($img, 40, 40, 80, 80, $circlecolor);
+	// Define text font
+	$font_path = '/opt/safespritesgenerator/Aller_Rg.ttf';
 
 	$hasforms = isset( $pokemon['forms'] );
 	if ( $hasforms ) {
