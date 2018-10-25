@@ -19,17 +19,6 @@ foreach ( $pokemons as $k => $pokemon ) {
 	// Get type color from pokemon
 	$primarycolor = $color[0];
 	list($r, $g, $b) = sscanf($primarycolor, "#%02x%02x%02x");
-	// Create transparant canvas
-	$img = imagecreatetruecolor(80, 80);
-	$color = imagecolorallocatealpha($img, 0, 0, 0, 127);
-	imagefill($img, 0, 0, $color);
-	imagesavealpha($img, true);
-	// Define colors
-	$white = imagecolorallocate($img, 255, 255, 255);
-	$black = imagecolorallocate($img, 0, 0, 0);
-	$circlecolor = imagecolorallocate($img, $r, $g, $b);
-	// Draw colored circle
-	imagefilledellipse($img, 40, 40, 80, 80, $circlecolor);
 	// Define text font
 	$id_font_path = '/opt/safespritesgenerator/Lato-Black.ttf';
 	$name_font_path = '/opt/safespritesgenerator/Lato-Bold.ttf';
@@ -39,8 +28,20 @@ foreach ( $pokemons as $k => $pokemon ) {
 	$hasforms = isset( $pokemon['forms'] );
 	if ( $hasforms ) {
 		foreach ( $pokemon['forms'] as $f ) {
+			// Create transparant canvas
+			$img = imagecreatetruecolor(80, 80);
+			$color = imagecolorallocatealpha($img, 0, 0, 0, 127);
+			imagefill($img, 0, 0, $color);
+			imagesavealpha($img, true);
+			// Define colors
+			$white = imagecolorallocate($img, 255, 255, 255);
+			$black = imagecolorallocate($img, 0, 0, 0);
+			$circlecolor = imagecolorallocate($img, $r, $g, $b);
+			// Draw colored circle
+			imagefilledellipse($img, 40, 40, 80, 80, $circlecolor);
 			$protoform = $f['protoform'];
 			$nameform = $f['nameform'];
+			echo $nameform;
 			$namebbox = imagettfbbox($font_size, 0, $name_font_path, $pokemon['name']);
 			$name_image_width = abs($namebbox[4] - $namebbox[0]);
 			if ( $name_image_width <= 80 ) {
@@ -69,6 +70,17 @@ foreach ( $pokemons as $k => $pokemon ) {
 			imagepng($img, "icons/pokemon_icon_" . $id . "_" . $protoform . ".png");
 		}
 	} else {
+		// Create transparant canvas
+		$img = imagecreatetruecolor(80, 80);
+		$color = imagecolorallocatealpha($img, 0, 0, 0, 127);
+		imagefill($img, 0, 0, $color);
+		imagesavealpha($img, true);
+		// Define colors
+		$white = imagecolorallocate($img, 255, 255, 255);
+		$black = imagecolorallocate($img, 0, 0, 0);
+		$circlecolor = imagecolorallocate($img, $r, $g, $b);
+		// Draw colored circle
+		imagefilledellipse($img, 40, 40, 80, 80, $circlecolor);
 		$bbox = imagettfbbox($font_size, 0, $name_font_path, $pokemon['name']);
 		$image_width = abs($bbox[4] - $bbox[0]);
 		if ( $image_width <= 80 ) {
