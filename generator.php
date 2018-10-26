@@ -27,6 +27,7 @@ foreach ( $pokemons as $k => $pokemon ) {
 	$form_font_size = 12;
 	$hasforms = isset( $pokemon['forms'] );
 	if ( $hasforms ) {
+		$i = 1;
 		foreach ( $pokemon['forms'] as $f ) {
 			// Create transparant canvas
 			$img = imagecreatetruecolor(81, 81);
@@ -72,6 +73,10 @@ foreach ( $pokemons as $k => $pokemon ) {
 			imagettftext($img, $form_font_size, 0, $form_x + 1, 66, $grey, $form_font_path, $nameform);
 			imagettftext($img, $form_font_size, 0, $form_x, 65, $white, $form_font_path, $nameform);
 			imagepng($img, "icons/pokemon_icon_" . $id . "_" . $protoform . ".png");
+			if ( $i <= 1 ) {
+				imagepng($img, "icons/pokemon_icon_" . $id . "_00.png");
+			}
+			$i++;
 		}
 	} else {
 		// Create transparant canvas
