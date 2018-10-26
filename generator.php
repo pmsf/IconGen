@@ -29,6 +29,13 @@ foreach ( $pokemons as $k => $pokemon ) {
 	if ( $hasforms ) {
 		$i = 1;
 		foreach ( $pokemon['forms'] as $f ) {
+			// Get form type color from pokemon
+			$formcolor = array();
+			foreach ( $f['formtypes'] as $ft ) {
+				array_push($formcolor, $ft['color']);
+			}
+			$primaryformcolor = $formcolor[0];
+			list($fr, $fg, $fb) = sscanf($primaryformcolor, "#%02x%02x%02x");
 			// Create transparant canvas
 			$img = imagecreatetruecolor(81, 81);
 			$color = imagecolorallocatealpha($img, 0, 0, 0, 127);
@@ -38,7 +45,7 @@ foreach ( $pokemons as $k => $pokemon ) {
 			$white = imagecolorallocate($img, 255, 255, 255);
 			$black = imagecolorallocate($img, 0, 0, 0);
 			$grey = imagecolorallocate($img, 128, 128, 128);
-			$circlecolor = imagecolorallocate($img, $r, $g, $b);
+			$circlecolor = imagecolorallocate($img, $fr, $fg, $fb);
 			// Draw colored circle
 			imagefilledellipse($img, 40, 40, 80, 80, $circlecolor);
 			imageellipse($img, 40, 40, 80, 80, $black);
