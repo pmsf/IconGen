@@ -2,6 +2,7 @@
 
 $json = file_get_contents( 'pokemon.json' );
 $pokemons = json_decode( $json, true );
+$dir = realpath(dirname(__FILE__));
 
 foreach ( $pokemons as $k => $pokemon ) {
 	if ( $k <= 9 ) {
@@ -31,7 +32,7 @@ foreach ( $pokemons as $k => $pokemon ) {
 	// Draw colored circle
 	imagefilledellipse($img, 40, 40, 80, 80, $circlecolor);
 	// Define text font
-	$font_path = '/opt/safespritesgenerator/Aller_Rg.ttf';
+	$font_path = "" . $dir . "/Aller_Rg.ttf";
 
 	$hasforms = isset( $pokemon['forms'] );
 	if ( $hasforms ) {
