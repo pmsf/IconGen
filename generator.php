@@ -80,8 +80,11 @@ foreach ( $pokemons as $k => $pokemon ) {
 			imagettftext($img, $form_font_size, 0, $form_x + 1, 66, $grey, $form_font_path, $nameform);
 			imagettftext($img, $form_font_size, 0, $form_x, 65, $white, $form_font_path, $nameform);
 			imagepng($img, "icons/pokemon_icon_" . $id . "_" . $protoform . ".png");
+			$pokemonname = $pokemon['name'];
+			echo "Icon for id: $id name: $pokemonname writen as $nameform. File pokemon_icon_" . $id . "_" . $protoform . ".png\n";
 			if ( $i <= 1 ) {
 				imagepng($img, "icons/pokemon_icon_" . $id . "_00.png");
+				echo "Icon for id: $id name: $pokemonname writen as normal. File pokemon_icon_" . $id . "_00.png\n";
 			}
 			$i++;
 		}
@@ -115,5 +118,7 @@ foreach ( $pokemons as $k => $pokemon ) {
 		imagettftext($img, $font_size, 0, $x + 1, 49, $grey, $name_font_path, $pokemon['name']);
 		imagettftext($img, $font_size, 0, $x, 48, $white, $name_font_path, $pokemon['name']);
 		imagepng($img, "icons/pokemon_icon_" . $id . "_00.png");
+		$pokemonname = $pokemon['name'];
+	        echo "Icon for id: $id name: $pokemonname writen as normal. File pokemon_icon_" . $id . "_00.png\n";
 	}
 }
