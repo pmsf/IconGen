@@ -62,13 +62,13 @@ foreach ( $pokemons as $k => $pokemon ) {
 				$name_x = floor((80 - $name_image_width) / 2 + 2);
 			}
 
-			$formbbox = imagettfbbox($font_size, 0, $form_font_path, $nameform);
+			$formbbox = imagettfbbox($form_font_size, 0, $form_font_path, $nameform);
 			$form_image_width = abs($formbbox[4] - $formbbox[0]);
 			if ( $form_image_width <= 80 ) {
 				$form_x = floor((80 - $form_image_width) / 2 + 2);
 			} else {
 				$form_font_size = 15 - 4;
-				$formbbox = imagettfbbox($font_size, 0, $form_font_path, $nameform);
+				$formbbox = imagettfbbox($form_font_size, 0, $form_font_path, $nameform);
 				$form_image_width = abs($formbbox[4] - $formbbox[0]);
 				$form_x = floor((80 - $form_image_width) / 2 + 2);
 			}
