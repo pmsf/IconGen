@@ -2,7 +2,7 @@
 
 $json = file_get_contents( 'pokemon.json' );
 $pokemons = json_decode( $json, true );
-
+$dir = realpath(dirname(__FILE__));
 foreach ( $pokemons as $k => $pokemon ) {
 	if ( $k <= 9 ) {
 		$id = "00$k";
@@ -20,9 +20,9 @@ foreach ( $pokemons as $k => $pokemon ) {
 	$primarycolor = $color[0];
 	list($r, $g, $b) = sscanf($primarycolor, "#%02x%02x%02x");
 	// Define text font
-	$id_font_path = '/opt/safespritesgenerator/Lato-Black.ttf';
-	$name_font_path = '/opt/safespritesgenerator/Lato-Bold.ttf';
-	$form_font_path = '/opt/safespritesgenerator/Lato-Regular.ttf';
+	$id_font_path = "" . $dir . "/Lato-Black.ttf";
+	$name_font_path = "" . $dir . "/Lato-Bold.ttf";
+	$form_font_path = "" . $dir . "/Lato-Regular.ttf";
 	$font_size = 15;
 	$form_font_size = 12;
 	$hasforms = isset( $pokemon['forms'] );
