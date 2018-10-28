@@ -7279,7 +7279,7 @@
       {
         "nameform": "Altered",
         "protoform": "90",
-        "assetform": "11",
+        "assetsform": "11",
         "formtypes": [
           {
             "type": "Ghost",
@@ -7294,7 +7294,7 @@
       {
         "nameform": "Origin",
         "protoform": "91",
-        "assetform": "12",
+        "assetsform": "12",
         "formtypes": [
           {
             "type": "Ghost",
@@ -7361,7 +7361,7 @@
       {
         "nameform": "Sky",
         "protoform": "92",
-        "assetform": "12",
+        "assetsform": "12",
         "formtypes": [
           {
             "type": "Grass",
@@ -7376,7 +7376,7 @@
       {
         "nameform": "Land",
         "protoform": "93",
-        "assetform": "11",
+        "assetsform": "11",
         "formtypes": [
           {
             "type": "Grass",

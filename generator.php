@@ -40,6 +40,7 @@ foreach ( $pokemons as $k => $pokemon ) {
 			$img = imagecreatetruecolor(81, 81);
 			$color = imagecolorallocatealpha($img, 0, 0, 0, 127);
 			imagefill($img, 0, 0, $color);
+			imagealphablending($img, true);
 			imagesavealpha($img, true);
 			// Define colors
 			$white = imagecolorallocate($img, 255, 255, 255);
@@ -50,6 +51,7 @@ foreach ( $pokemons as $k => $pokemon ) {
 			imagefilledellipse($img, 40, 40, 80, 80, $circlecolor);
 			imageellipse($img, 40, 40, 80, 80, $black);
 			$protoform = $f['protoform'];
+			$assetform = $f['assetsform'];
 			$nameform = $f['nameform'];
 			$namebbox = imagettfbbox($font_size, 0, $name_font_path, $pokemon['name']);
 			$name_image_width = abs($namebbox[4] - $namebbox[0]);
@@ -80,8 +82,10 @@ foreach ( $pokemons as $k => $pokemon ) {
 			imagettftext($img, $form_font_size, 0, $form_x + 1, 66, $grey, $form_font_path, $nameform);
 			imagettftext($img, $form_font_size, 0, $form_x, 65, $white, $form_font_path, $nameform);
 			imagepng($img, "icons/pokemon_icon_" . $id . "_" . $protoform . ".png");
+			imagepng($img, "icons/pokemon_icon_" . $id . "_" . $assetform . ".png");
 			$pokemonname = $pokemon['name'];
 			echo "Icon for id: $id name: $pokemonname writen as $nameform. File pokemon_icon_" . $id . "_" . $protoform . ".png\n";
+			echo "Icon for id: $id name: $pokemonname writen as $nameform. File pokemon_icon_" . $id . "_" . $assetform . ".png\n";
 			if ( $i <= 1 ) {
 				imagepng($img, "icons/pokemon_icon_" . $id . "_00.png");
 				echo "Icon for id: $id name: $pokemonname writen as normal. File pokemon_icon_" . $id . "_00.png\n";
@@ -93,6 +97,7 @@ foreach ( $pokemons as $k => $pokemon ) {
 		$img = imagecreatetruecolor(81, 81);
 		$color = imagecolorallocatealpha($img, 0, 0, 0, 127);
 		imagefill($img, 0, 0, $color);
+		imagealphablending($img, true);
 		imagesavealpha($img, true);
 		// Define colors
 		$white = imagecolorallocate($img, 255, 255, 255);
