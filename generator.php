@@ -3,6 +3,14 @@
 $json = file_get_contents( 'pokemon.json' );
 $pokemons = json_decode( $json, true );
 $dir = realpath(dirname(__FILE__));
+$noassets = array('Shadow', 'Purified', 'No Evolve', 'Fall');
+function strposarr ( $nameform, $noassets, $offset=0) {
+	if(!is_array($noassets)) $noassets = array($noassets);
+		foreach($noassets as $query) {
+			if(strpos($nameform, $query, $offset) !== false) return true;
+		}
+		return false;
+}
 foreach ( $pokemons as $k => $pokemon ) {
 	if ( $k <= 9 ) {
 		$id = "00$k";
@@ -51,7 +59,11 @@ foreach ( $pokemons as $k => $pokemon ) {
 			imagefilledellipse($img, 40, 40, 80, 80, $circlecolor);
 			imageellipse($img, 40, 40, 80, 80, $black);
 			$protoform = $f['protoform'];
-			$assetform = $f['assetsform'];
+			if ( strposarr ( $f['nameform'], $noassets ) ) { 
+				$assetform = rand(4000, 9999);
+			} else {
+				$assetform = $f['assetsform'];
+			}
 			$nameform = $f['nameform'];
 			$namebbox = imagettfbbox($font_size, 0, $name_font_path, $pokemon['name']);
 			$name_image_width = abs($namebbox[4] - $namebbox[0]);
